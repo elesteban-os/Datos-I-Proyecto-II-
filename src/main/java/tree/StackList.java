@@ -1,5 +1,8 @@
 package tree;
 
+import tree.list.LinkedList;
+import tree.list.Node;
+
 public class StackList {
 
     private LinkedList list = new LinkedList();

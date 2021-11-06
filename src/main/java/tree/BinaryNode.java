@@ -26,6 +26,14 @@ public class BinaryNode {
     }
 
     /**
+     * method to get the character of this BinaryNode
+     * @return this BinaryNode's character
+     */
+    public String getCharacter() {
+        return this.character;
+    }
+
+    /**
      * method to set a left child for this BinaryNode
      * @param left left child for this BinaryNode
      */

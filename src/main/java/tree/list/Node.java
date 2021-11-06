@@ -1,4 +1,4 @@
-package tree;
+package tree.list;
 
 public class Node {
     private Object data;
