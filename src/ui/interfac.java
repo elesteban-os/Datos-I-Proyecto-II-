@@ -2,70 +2,37 @@ package src.ui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import src.sockets.Client;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
-
 import src.Calculator;
 
+/**
+ * Clase que procesa las características de la interfaz.
+ */
 public class interfac {
-
     private Calculator calculator = new Calculator();
-
     private JFrame window = new JFrame("Calculadora");
     private JButton calcular = new JButton("Calcular");
-
     private JTextField operation = new JTextField();
-
     private JLabel lOperation = new JLabel("Operación");
     private JLabel lResultText = new JLabel("Resultado: ");
     private JLabel lResult = new JLabel("0");
-
     private JTextField name = new JTextField();
     private JLabel lName = new JLabel("Nombre");
     private JButton entrar = new JButton("Unirse");
-
     private JTable table;
-
     private DefaultTableModel writeTable;
-
     private interfac thisInterfaz;
-    private String named = "";
     private Client client;
-
-    public interfac getThisInterfaz() {
-        return thisInterfaz;
-    }
-
     public void setThisInterfaz(interfac thisInterfaz) {
         this.thisInterfaz = thisInterfaz;
     }
 
-    public String getNamed() {
-        return named;
-    }
-
-    public void setNamed(String named) {
-        this.named = named;
-    }
-
-    ActionListener letters = new ActionListener() {
-        public void actionPerformed(ActionEvent event) {
-        /* String words = operation.getText();
-        for(int i = 0; i != words.length(); i++){
-            char c = words.charAt(i);
-            if(Character.isLetter(c)){
-                words.;
-            }
-        } */
-        }
-    };
-
+    /**
+     * Función que escucha al botón de calcular.
+     */
     ActionListener escuchador = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent event) {
@@ -80,6 +47,9 @@ public class interfac {
         }
     };
 
+    /**
+     * Función que escucha al botón de entrar.
+     */
     ActionListener enter = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent event) {
@@ -96,16 +66,40 @@ public class interfac {
         }
     };
 
+    /**
+     * Función que agrega una nueva fila a la tabla.
+     * @param name nombre
+     * @param oper operacion
+     * @param date fecha
+     * @param result resultado
+     */
     public void appendTable(String name, String oper, String date, String result) {
+        System.out.println("enttre a apen" + name + "7");
         DefaultTableModel model = (DefaultTableModel) this.table.getModel();
         model.addRow(new Object[]{name, oper, date, result});
-        this.window.repaint();
     }
 
-
+    /**
+     * Función que genera una tabla a partir del texto que el servidor envía.
+     * @param message
+     */
     public void setRecord(String message) {
         System.out.println("si");
-        if (!message.equals("onlyTable")){
+        if (message.equals("onlyTable")){
+            String[][] data = new String[1][4];
+            String[] colums = {"Nombre", "Operación", "Fecha", "Resultado"};
+
+            data[0][0] = "Nombre";
+            data[0][1] = "Operación";
+            data[0][2] = "Fecha";
+            data[0][3] = "Resultado";
+
+            this.writeTable = new DefaultTableModel(data, colums);
+            this.table = new JTable(this.writeTable);
+            this.table.setBounds(200, 100, 320, 370);
+            this.window.add(this.table);
+            this.window.repaint();
+        } else{
             String[] operations = message.split(";");
 
             System.out.println(operations.length);
@@ -134,23 +128,7 @@ public class interfac {
             this.table.setBounds(200, 100, 320, 370);
             this.window.add(this.table);
             this.window.repaint();
-
-        } else{
-            String[][] data = new String[1][4];
-            String[] colums = {"Nombre", "Operación", "Fecha", "Resultado"};
-
-            data[0][0] = "Nombre";
-            data[0][1] = "Operación";
-            data[0][2] = "Fecha";
-            data[0][3] = "Resultado";
-
-            this.writeTable = new DefaultTableModel(data, colums);
-            this.table = new JTable(this.writeTable);
-            this.table.setBounds(200, 100, 320, 370);
-            this.window.add(this.table);
-            this.window.repaint();
         }
-
     }
 
 
@@ -178,8 +156,6 @@ public class interfac {
         lResultText.setBounds(50, 150, 100, 10);
         lName.setBounds(300, 8, 100, 10);
 
-        operation.addActionListener(letters);
-
         window.add(operation);
         window.add(lOperation);
         window.add(calcular);
@@ -196,19 +172,12 @@ public class interfac {
         window.setDefaultCloseOperation(window.EXIT_ON_CLOSE);
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
+    /**
+     * Función que coloca el resultado de la operación en el label del resultado.
+     * @param result resultado de la operación
+     */
     public void setResult(String result) {
         this.lResult.setText(result);
     }
 
-
-    private class Interfac {
-    }
 }

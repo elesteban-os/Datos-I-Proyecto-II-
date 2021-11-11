@@ -8,26 +8,31 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import src.csvReader;
-import src.tree.ExpressionTree;
 
-
+/**
+ * Clase que ejecuta un servidor.
+ */
 public class Server {
     ServerSocket server;
-    Socket serverListener;
     ArrayList<Socket> clients = new ArrayList<>();
     int clientsIDs;
-    reader Reader;
-    sender Sender;
-    DataInputStream input;
-    DataOutputStream output;
     csvReader file = new csvReader();
 
-
+    /**
+     * Función que ejecuta un servidor.
+     * @throws IOException excepción
+     */
     public void runServer() throws IOException {
         this.server = new ServerSocket(2121);
         newClient();
     }
 
+    /**
+     * Función que lee un cliente.
+     * @param name nombre del cliente.
+     * @return mensaje descifrado.
+     * @throws IOException excepción.
+     */
     public String readClient(String name) throws IOException {
         ArrayList<String> read = file.read();
         StringBuilder sb = new StringBuilder();
@@ -46,8 +51,10 @@ public class Server {
         return sb.toString();
     }
 
-
-
+    /**
+     * Función que prepara a un cliente nuevo que se una al servidor.
+     * @throws IOException excepción
+     */
     public void newClient() throws IOException {
         while(!this.server.isClosed()){
             Socket client = this.server.accept();
@@ -64,28 +71,26 @@ public class Server {
         }
     }
 
+    /**
+     * Función que obtiene el nombre del cliente.
+     * @param client cliente
+     * @return nombre del cliente
+     * @throws IOException excepción
+     */
     public String getName(Socket client) throws IOException{
         DataInputStream inputClient = new DataInputStream(client.getInputStream());
         String name = inputClient.readUTF();
         return name;
     }
 
+    /**
+     * Función que le asigna una identificación a un cliente
+     * @param client cliente
+     * @throws IOException excepción
+     */
     public void assignID(Socket client) throws IOException {
         DataOutputStream outputClient = new DataOutputStream(client.getOutputStream());
         outputClient.writeUTF(String.valueOf(this.clientsIDs));
         this.clientsIDs++;
     }
-
-    public void sendMessageTo(String message, String id) throws IOException{
-        Socket client = this.clients.get(Integer.parseInt(id));
-        DataOutputStream clientDO = new DataOutputStream(client.getOutputStream());
-        this.Sender.startSender(message, clientDO);
-    }
-
-
-    public static void main(String[] args) throws IOException {
-        Server server = new Server();
-        server.runServer();
-    }
-
 }

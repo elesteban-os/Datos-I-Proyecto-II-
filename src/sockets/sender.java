@@ -23,6 +23,12 @@ public class sender {
         this.output.writeUTF(message);
     }
 
+    /**
+     * Función que envía mensajes a un determinado socket.
+     * @param message mensaje enviado.
+     * @param socketTO cliente al que se quiere comunicar.
+     * @throws IOException excepción.
+     */
     public void startSender(String message, DataOutputStream socketTO) throws IOException {
         socketTO.writeUTF(message);
     }

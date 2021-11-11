@@ -12,6 +12,9 @@ import java.util.StringTokenizer;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
+/**
+ * Clase que funciona como trabajador de un único cliente.
+ */
 public class ClientListener implements Runnable {
     public Socket client;
     private Calculator calculator = new Calculator();
@@ -22,6 +25,12 @@ public class ClientListener implements Runnable {
     String name;
     boolean open = true;
 
+    /**
+     * Constructor de la clase.
+     * @param client cliente al que se le quiere escuchar y responder.
+     * @param name nombre del cliente.
+     * @throws IOException
+     */
     public ClientListener(Socket client, String name) throws IOException {
         this.client = client;
         this.output = new DataOutputStream(client.getOutputStream());
@@ -29,7 +38,9 @@ public class ClientListener implements Runnable {
         this.name = name;
     }
 
-
+    /**
+     * Función que ejecuta un hilo para la constante escucha y escritura de los sockets.
+     */
     public void run() {
         while (open) {
             String message = "";

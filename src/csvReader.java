@@ -1,13 +1,11 @@
 package src;
 
-import src.tree.StackList;
-
 import java.io.*;
 import java.util.ArrayList;
 
-import java.util.LinkedList;
-import java.util.Stack;
-
+/**
+ * Clase que actúa de lectura y escritura en el archivo .csv
+ */
 public class csvReader {
     private BufferedReader reader;
     private String path = "src\\record.csv";
@@ -33,6 +31,11 @@ public class csvReader {
         return result;
     }
 
+    /**
+     * Función que lee el archivo .csv
+     * @return mensaje leído
+     * @throws IOException excepción
+     */
     public ArrayList read() throws IOException{
         this.reader = new BufferedReader(new FileReader(this.path));
 
@@ -52,6 +55,14 @@ public class csvReader {
         return data;
     }
 
+    /**
+     * Función que escribe en el archivo .csv
+     * @param id identificación
+     * @param operation operación
+     * @param date fechas
+     * @param result resultado
+     * @throws IOException excepción
+     */
     public void write(String id, String operation, String date, String result) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("src\\record.csv"));
         StringBuilder data = new StringBuilder();

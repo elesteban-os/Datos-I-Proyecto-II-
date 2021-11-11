@@ -39,6 +39,10 @@ public class LinkedList {
         }
     }
 
+    /**
+     * method to add an element at the end of the LinkedList
+     * @param data element to add
+     */
     public void addAtEnd(Object data) {
         Node newData = new Node (data);
         if (this.isEmpty()) {
