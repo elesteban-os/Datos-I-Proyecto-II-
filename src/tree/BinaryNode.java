@@ -1,4 +1,4 @@
-package tree;
+package src.tree;
 
 public class BinaryNode {
     private String character;

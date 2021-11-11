@@ -1,4 +1,4 @@
-package tree.list;
+package src.tree.list;
 
 public class LinkedList {
 

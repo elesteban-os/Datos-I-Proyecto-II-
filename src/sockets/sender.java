@@ -1,9 +1,7 @@
-package sockets;
+package src.sockets;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-
-import javax.xml.crypto.Data;
 
 public class sender {
     private final DataOutputStream output;

@@ -1,6 +1,8 @@
-import tree.QueueList;
-import tree.StackList;
-import tree.ExpressionTree;
+package src;
+
+import src.tree.QueueList;
+import src.tree.StackList;
+import src.tree.ExpressionTree;
 
 public class Calculator {
 

@@ -1,4 +1,4 @@
-package ui;
+package src.ui;
 
 import javax.swing.*;
 
@@ -24,10 +24,27 @@ public class interfac {
     private JLabel lName = new JLabel("Nombre");
     private JButton entrar = new JButton("Unirse");
 
+    //private JTable
 
-
+    private interfac thisInterfaz;
+    private String named = "";
     private Client client;
 
+    public interfac getThisInterfaz() {
+        return thisInterfaz;
+    }
+
+    public void setThisInterfaz(interfac thisInterfaz) {
+        this.thisInterfaz = thisInterfaz;
+    }
+
+    public String getNamed() {
+        return named;
+    }
+
+    public void setNamed(String named) {
+        this.named = named;
+    }
     ActionListener letters = new ActionListener(){
         public void actionPerformed(ActionEvent event){
         /* String words = operation.getText();
@@ -51,19 +68,40 @@ public class interfac {
         }
     };
 
+    ActionListener enter = new ActionListener(){
+        @Override
+        public void actionPerformed(ActionEvent event){
+            String named = name.getText();
+            try {
+                client = new Client(thisInterfaz, named);
+            } catch (IOException io){
+                io.printStackTrace();
+            }
+            calcular.setEnabled(true);
+            entrar.setEnabled(false);
+            operation.setEnabled(true);
+            name.setEnabled(false);
+        }
+    };
+
 
     /**
      * Constructor que implementa todas las características de la interfaz.
      */
-    public interfac(){
+    public interfac() {
+        System.out.println();
+
 
         // Botón
         calcular.setBounds(50, 300, 100, 30);
         calcular.addActionListener(escuchador);
+        calcular.setEnabled(false);
         entrar.setBounds(410, 20, 100, 30);
+        entrar.addActionListener(enter);
 
         // Cuadros de texto
         operation.setBounds(50, 100, 100, 30);
+        operation.setEnabled(false);
         name.setBounds(300, 20, 100, 30);
 
         // Labels
@@ -101,4 +139,6 @@ public class interfac {
     }
 
 
+    private class Interfac {
+    }
 }

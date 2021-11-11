@@ -1,4 +1,4 @@
-package sockets;
+package src.sockets;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -30,11 +30,19 @@ public class Server {
         while(!this.server.isClosed()){
             Socket client = this.server.accept();
             this.clients.add(client);
-            ClientListener listener = new ClientListener(client);
-            new Thread(listener).start();
             assignID(client);
+            String name = getName(client);
+            System.out.println(name);
+            ClientListener listener = new ClientListener(client, name);
+            new Thread(listener).start();
             System.out.println("Nuevo cliente conectado, es el #" + (this.clientsIDs - 1));
         }
+    }
+
+    public String getName(Socket client) throws IOException{
+        DataInputStream inputClient = new DataInputStream(client.getInputStream());
+        String name = inputClient.readUTF();
+        return name;
     }
 
     public void assignID(Socket client) throws IOException {

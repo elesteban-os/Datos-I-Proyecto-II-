@@ -1,7 +1,7 @@
-package tree;
+package src.tree;
 
-import tree.list.LinkedList;
-import tree.list.Node;
+import src.tree.list.LinkedList;
+import src.tree.list.Node;
 
 public class StackList {
 

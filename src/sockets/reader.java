@@ -1,11 +1,9 @@
-package sockets;
+package src.sockets;
 
-import ui.interfac;
+import src.ui.interfac;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -67,15 +65,9 @@ public class reader implements Runnable {
         while (isReading){
             System.out.println("OOO");
             try { message = read(); } catch (IOException e){ this.isReading = false; }
-            tokens = tokens(message);
+            System.out.println(message);
 
-            if (this.ready){
-                if (this.uInterface != null){
-                    this.uInterface.setResult(message);
-                }
-            } else {
-                this.ready = true;
-            }
+            this.uInterface.setResult(message);
 
         }
     }

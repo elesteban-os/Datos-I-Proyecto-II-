@@ -1,11 +1,11 @@
-package sockets;
+package src.sockets;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import ui.interfac;
+import src.ui.interfac;
 
 public class Client {
     private static final Client Client = null;
@@ -14,6 +14,7 @@ public class Client {
     reader Reader;
     sender Sender;
     interfac window;
+    String name;
 
     public interfac getWindow() {
         return window;
@@ -28,7 +29,7 @@ public class Client {
         joinServer();
         startClient();
         getID();
-        this.window = ui;
+        setWindowOnReader();
     }
 
     public void joinServer() throws IOException {
@@ -46,6 +47,7 @@ public class Client {
         this.id = input.readUTF();
         new Thread(this.Reader).start();
         this.Sender.startSender("Soy cliente " + this.id);
+        this.Sender.startSender(this.name);
         System.out.println("ID de cliente: " +this.id);
     }
 
