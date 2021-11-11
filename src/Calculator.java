@@ -2,7 +2,6 @@ package src;
 
 import src.tree.QueueList;
 import src.tree.StackList;
-import src.tree.ExpressionTree;
 
 public class Calculator {
 
@@ -86,6 +85,7 @@ public class Calculator {
      */
     public String getPostfix(String operation) {
         String parenthesised = this.addParenthesis(operation);
+        System.out.println("Added (): " + parenthesised);
         String[] characters = parenthesised.split("");
         StackList stack = new StackList();
         StringBuilder output = new StringBuilder();

@@ -9,11 +9,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.StringTokenizer;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class ClientListener implements Runnable {
     public Socket client;
     private Calculator calculator = new Calculator();
     ExpressionTree tree = new ExpressionTree();
+    private csvReader filer = new csvReader();
     DataOutputStream output;
     DataInputStream input;
     String name;
@@ -47,12 +50,19 @@ public class ClientListener implements Runnable {
                 action = new StringTokenizer(message);
                 switch(action.nextToken()){
                     case "operation":
-                        String postfix = this.calculator.getPostfix(action.nextToken());
+                        String operation = action.nextToken();
+                        System.out.println("Solve: " + operation);
+                        String postfix = this.calculator.getPostfix(operation);
+                        System.out.println("Postfix: " + postfix);
                         tree.create(postfix);
                         int result = tree.getResult();
                         try {
                             this.output.writeUTF(String.valueOf(result));
-                        } catch (IOException io){ }
+                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+                            this.filer.write(this.name, operation, dtf.format(LocalDateTime.now()), String.valueOf(result));
+                        } catch (IOException io) {
+                            io.printStackTrace();
+                        }
                         break;
                     default:
                         break;
