@@ -1,4 +1,4 @@
-package src.sockets;
+package sockets;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -7,7 +7,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import src.csvReader;
+import ui.csvReader;
 
 /**
  * Clase que ejecuta un servidor.

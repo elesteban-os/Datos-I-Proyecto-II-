@@ -1,8 +1,8 @@
-package src.sockets;
+package sockets;
 
-import src.Calculator;
-import src.csvReader;
-import src.tree.ExpressionTree;
+import ui.Calculator;
+import ui.csvReader;
+import tree.ExpressionTree;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

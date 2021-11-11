@@ -1,7 +1,7 @@
-package src;
+package ui;
 
-import src.tree.QueueList;
-import src.tree.StackList;
+import tree.QueueList;
+import tree.StackList;
 
 public class Calculator {
 
@@ -14,10 +14,19 @@ public class Calculator {
         String[] characters = operation.split("");
         StackList stack = new StackList();
         String lastOperator = "";
+        StringBuilder number = new StringBuilder();
         for (int i = 0; i < characters.length; i++) {
             switch (characters[i]) {
-                case "+", "-", "*", "/", "%" -> {
+                case "+", "*", "/", "%" -> {
                     lastOperator = characters[i];
+                }
+                case "-" -> {
+                    if (i == 0 || !lastOperator.equals("")) {
+                        number.append(characters[i]);
+                    } else {
+                        lastOperator = characters[i];
+                    }
+
                 }
                 case "(" -> {
                     boolean enclosed = true;
@@ -34,7 +43,6 @@ public class Calculator {
                 }
                 default -> {
                     boolean isANumber = true;
-                    StringBuilder number = new StringBuilder();
                     while (isANumber && i < characters.length) {
                         if (!this.isNaN(characters[i])) {
                             number.append(characters[i]);
@@ -45,11 +53,14 @@ public class Calculator {
                         }
                     }
                     stack.push(number.toString());
+                    number = new StringBuilder();
                     if (!lastOperator.equals("")) {
                         String operand2 = (String) stack.pop().getData();
                         String operand1 = (String) stack.pop().getData();
                         switch (lastOperator) {
                             case "*", "/", "%" -> {
+                                System.out.println("got here for " + lastOperator);
+                                System.out.println("(" + operand1 + lastOperator + operand2 + ")");
                                 stack.push("(" + operand1 + lastOperator + operand2 + ")");
                             }
                             default -> {
@@ -58,6 +69,7 @@ public class Calculator {
                                 stack.push(operand2);
                             }
                         }
+                        lastOperator = "";
                     }
                 }
             }
@@ -89,11 +101,29 @@ public class Calculator {
         String[] characters = parenthesised.split("");
         StackList stack = new StackList();
         StringBuilder output = new StringBuilder();
+        boolean operator = true;
         for (int i = 0; i < characters.length; i++) {
             switch (characters[i]) {
-                case "(", "+", "-", "*", "/", "%" -> stack.push(characters[i]);
+                case "(", "+", "*", "/", "%" -> {
+                    stack.push(characters[i]);
+                    if (!characters[i].equals("(")) {
+                        operator = true;
+                    }
+                }
+                case "-" -> {
+                    if (operator){
+                        output.append(characters[i]);
+                        operator = false;
+                    } else {
+                        stack.push(characters[i]);
+                        operator = true;
+                    }
+
+
+                }
                 case ")" -> {
                     output.append(stack.pop().getData());
+                    operator = false;
                     stack.pop();
                     output.append(",");
                 }

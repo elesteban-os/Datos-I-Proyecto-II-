@@ -1,4 +1,4 @@
-package src.tree;
+package tree;
 
 public class ExpressionTree {
     private BinaryNode root;

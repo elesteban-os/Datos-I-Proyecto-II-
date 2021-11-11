@@ -1,6 +1,4 @@
-package src;
-
-import src.ui.interfac;
+import ui.interfac;
 import java.io.IOException;
 
 /**

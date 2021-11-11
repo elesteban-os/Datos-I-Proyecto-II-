@@ -1,6 +1,6 @@
-package src.sockets;
+package sockets;
 
-import src.ui.interfac;
+import ui.interfac;
 
 import java.io.DataInputStream;
 import java.io.IOException;

@@ -1,12 +1,13 @@
-package src.ui;
+package ui;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import src.sockets.Client;
+import sockets.Client;
+import ui.Calculator;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import src.Calculator;
 
 /**
  * Clase que procesa las características de la interfaz.

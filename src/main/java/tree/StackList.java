@@ -1,9 +1,9 @@
-package src.tree;
+package tree;
 
-import src.tree.list.LinkedList;
-import src.tree.list.Node;
+import tree.list.LinkedList;
+import tree.list.Node;
 
-public class QueueList {
+public class StackList {
 
     private LinkedList list = new LinkedList();
 
@@ -11,15 +11,15 @@ public class QueueList {
      * method to add an element to the stack
      * @param data element to add
      */
-    public void enqueue(Object data) {
-        this.list.addAtEnd(data);
+    public void push(Object data) {
+        this.list.addAtFront(data);
     }
 
     /**
      * method to get and delete the first element of the stack
      * @return first element of the stack
      */
-    public Node dequeue() {
+    public Node pop() {
         return this.list.delete();
     }
 

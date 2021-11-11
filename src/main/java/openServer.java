@@ -1,6 +1,4 @@
-package src;
-
-import src.sockets.Server;
+import sockets.Server;
 import java.io.IOException;
 
 /**

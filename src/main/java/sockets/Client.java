@@ -1,11 +1,11 @@
-package src.sockets;
+package sockets;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import src.ui.interfac;
+import ui.interfac;
 
 /**
  * Clase que se conecta a un servidor y funciona como comunicador de mensajes y como implementación para la
