@@ -60,9 +60,19 @@ public class reader implements Runnable {
 
             switch(action.nextToken()){
                 case "record":
-                    String record = action.nextToken();
-                    System.out.println(record);
-                    this.uInterface.setRecord(record);
+                    if(action.hasMoreTokens()){
+                        String record = action.nextToken();
+                        System.out.println(record);
+                        this.uInterface.setRecord(record);
+                    }
+                    this.uInterface.setRecord("onlyTable");
+                    break;
+                case "table":
+                    String name = action.nextToken();
+                    String oper = action.nextToken();
+                    String date = action.nextToken();
+                    String result = action.nextToken();
+                    this.uInterface.appendTable(name, oper, date, result);
                     break;
                 default:
                     this.uInterface.setResult(message);
@@ -73,3 +83,4 @@ public class reader implements Runnable {
         }
     }
 }
+

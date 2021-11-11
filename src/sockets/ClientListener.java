@@ -20,6 +20,7 @@ public class ClientListener implements Runnable {
     DataOutputStream output;
     DataInputStream input;
     String name;
+    boolean open = true;
 
     public ClientListener(Socket client, String name) throws IOException {
         this.client = client;
@@ -30,20 +31,14 @@ public class ClientListener implements Runnable {
 
 
     public void run() {
-        while (this.client.isConnected()) {
+        while (open) {
             String message = "";
             StringTokenizer action;
             try {
                 message = this.input.readUTF();
                 System.out.println("leo " + message);
             } catch (IOException io){
-                try {
-                    this.client.close();
-                }
-                catch (IOException io2) {
-                    io2.printStackTrace();
-                }
-                io.printStackTrace();
+                this.open = false;
             }
 
             if (message != ""){
@@ -60,6 +55,8 @@ public class ClientListener implements Runnable {
                             this.output.writeUTF(String.valueOf(result));
                             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                             this.filer.write(this.name, operation, dtf.format(LocalDateTime.now()), String.valueOf(result));
+                            this.output.writeUTF("table" + " " + this.name + " " + operation + " " +
+                                    dtf.format(LocalDateTime.now()) + " " + String.valueOf(result));
                         } catch (IOException io) {
                             io.printStackTrace();
                         }

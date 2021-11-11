@@ -53,8 +53,9 @@ public class interfac {
     public void setNamed(String named) {
         this.named = named;
     }
-    ActionListener letters = new ActionListener(){
-        public void actionPerformed(ActionEvent event){
+
+    ActionListener letters = new ActionListener() {
+        public void actionPerformed(ActionEvent event) {
         /* String words = operation.getText();
         for(int i = 0; i != words.length(); i++){
             char c = words.charAt(i);
@@ -65,9 +66,9 @@ public class interfac {
         }
     };
 
-    ActionListener escuchador = new ActionListener(){
+    ActionListener escuchador = new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent event){
+        public void actionPerformed(ActionEvent event) {
             try {
                 String expression = operation.getText();
                 if (calculator.validate(expression)) {
@@ -79,13 +80,13 @@ public class interfac {
         }
     };
 
-    ActionListener enter = new ActionListener(){
+    ActionListener enter = new ActionListener() {
         @Override
-        public void actionPerformed(ActionEvent event){
+        public void actionPerformed(ActionEvent event) {
             String named = name.getText();
             try {
                 client = new Client(thisInterfaz, named);
-            } catch (IOException io){
+            } catch (IOException io) {
                 io.printStackTrace();
             }
             calcular.setEnabled(true);
@@ -95,35 +96,61 @@ public class interfac {
         }
     };
 
+    public void appendTable(String name, String oper, String date, String result) {
+        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        model.addRow(new Object[]{name, oper, date, result});
+        this.window.repaint();
+    }
 
-    public void setRecord(String message){
+
+    public void setRecord(String message) {
         System.out.println("si");
-        String[] operations = message.split(";");
-        String[][] data = new String[20][4];
-        String[] colums = {"Nombre", "Operación", "Fecha", "Resultado"};
+        if (!message.equals("onlyTable")){
+            String[] operations = message.split(";");
 
-        data[0][0] = "Nombre";
-        data[0][1] = "Operación";
-        data[0][2] = "Fecha";
-        data[0][3] = "Resultado";
+            System.out.println(operations.length);
 
-        int j = 1;
-        int k = 0;
-        for (int i = 0; i < operations.length; i++){
-            data[j][k] = operations[i];
-            if (k == 3){
-                j++;
-                k = 0;
-            } else {
-                k++;
+            String[][] data = new String[(operations.length / 4) + 1][4];
+            String[] colums = {"Nombre", "Operación", "Fecha", "Resultado"};
+
+            data[0][0] = "Nombre";
+            data[0][1] = "Operación";
+            data[0][2] = "Fecha";
+            data[0][3] = "Resultado";
+
+            int j = 1;
+            int k = 0;
+            for (int i = 0; i < operations.length; i++) {
+                data[j][k] = operations[i];
+                if (k == 3) {
+                    j++;
+                    k = 0;
+                } else {
+                    k++;
+                }
             }
+            this.writeTable = new DefaultTableModel(data, colums);
+            this.table = new JTable(this.writeTable);
+            this.table.setBounds(200, 100, 320, 370);
+            this.window.add(this.table);
+            this.window.repaint();
+
+        } else{
+            String[][] data = new String[1][4];
+            String[] colums = {"Nombre", "Operación", "Fecha", "Resultado"};
+
+            data[0][0] = "Nombre";
+            data[0][1] = "Operación";
+            data[0][2] = "Fecha";
+            data[0][3] = "Resultado";
+
+            this.writeTable = new DefaultTableModel(data, colums);
+            this.table = new JTable(this.writeTable);
+            this.table.setBounds(200, 100, 320, 370);
+            this.window.add(this.table);
+            this.window.repaint();
         }
 
-        this.writeTable = new DefaultTableModel(data, colums);
-        this.table = new JTable(this.writeTable);
-        this.table.setBounds(200, 100, 320, 370);
-        this.window.add(this.table);
-        this.window.repaint();
     }
 
 
@@ -168,9 +195,11 @@ public class interfac {
         window.setVisible(true);
         window.setDefaultCloseOperation(window.EXIT_ON_CLOSE);
     }
+
     public Client getClient() {
         return client;
     }
+
     public void setClient(Client client) {
         this.client = client;
     }
