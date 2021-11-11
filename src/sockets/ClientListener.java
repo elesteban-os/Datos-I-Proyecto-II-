@@ -58,7 +58,7 @@ public class ClientListener implements Runnable {
                         int result = tree.getResult();
                         try {
                             this.output.writeUTF(String.valueOf(result));
-                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss dd/MM/yyyy");
+                            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                             this.filer.write(this.name, operation, dtf.format(LocalDateTime.now()), String.valueOf(result));
                         } catch (IOException io) {
                             io.printStackTrace();

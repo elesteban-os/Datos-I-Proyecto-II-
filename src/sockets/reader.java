@@ -60,7 +60,9 @@ public class reader implements Runnable {
 
             switch(action.nextToken()){
                 case "record":
-                    this.uInterface.setRecord(action.nextToken());
+                    String record = action.nextToken();
+                    System.out.println(record);
+                    this.uInterface.setRecord(record);
                     break;
                 default:
                     this.uInterface.setResult(message);

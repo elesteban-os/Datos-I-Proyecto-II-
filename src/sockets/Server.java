@@ -57,7 +57,7 @@ public class Server {
             System.out.println(name);
             System.out.println(readClient(name));
             DataOutputStream temp = new DataOutputStream(client.getOutputStream());
-            temp.writeUTF("record" + " " + readClient(name));
+            temp.writeUTF("record" + " " + readClient(name) + ";");
             ClientListener listener = new ClientListener(client, name);
             new Thread(listener).start();
             System.out.println("Nuevo cliente conectado, es el #" + (this.clientsIDs - 1));

@@ -30,7 +30,7 @@ public class interfac {
     private JLabel lName = new JLabel("Nombre");
     private JButton entrar = new JButton("Unirse");
 
-    private JTable table = new JTable();
+    private JTable table;
 
     private DefaultTableModel writeTable;
 
@@ -97,8 +97,33 @@ public class interfac {
 
 
     public void setRecord(String message){
+        System.out.println("si");
         String[] operations = message.split(";");
-        String[][] data = new String[3][20];
+        String[][] data = new String[20][4];
+        String[] colums = {"Nombre", "Operación", "Fecha", "Resultado"};
+
+        data[0][0] = "Nombre";
+        data[0][1] = "Operación";
+        data[0][2] = "Fecha";
+        data[0][3] = "Resultado";
+
+        int j = 1;
+        int k = 0;
+        for (int i = 0; i < operations.length; i++){
+            data[j][k] = operations[i];
+            if (k == 3){
+                j++;
+                k = 0;
+            } else {
+                k++;
+            }
+        }
+
+        this.writeTable = new DefaultTableModel(data, colums);
+        this.table = new JTable(this.writeTable);
+        this.table.setBounds(200, 100, 320, 370);
+        this.window.add(this.table);
+        this.window.repaint();
     }
 
 
