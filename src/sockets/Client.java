@@ -25,7 +25,9 @@ public class Client {
         this.Reader.setWindow(window);
     }
 
-    public Client(interfac ui) throws IOException{
+    public Client(interfac ui, String name) throws IOException {
+        this.window = ui;
+        this.name = name;
         joinServer();
         startClient();
         getID();
@@ -42,7 +44,7 @@ public class Client {
         this.Sender = new sender(new DataOutputStream(this.socket.getOutputStream()));
     }
 
-    public void getID() throws IOException{
+    public void getID() throws IOException {
         DataInputStream input = new DataInputStream(this.socket.getInputStream());
         this.id = input.readUTF();
         new Thread(this.Reader).start();
@@ -51,11 +53,11 @@ public class Client {
         System.out.println("ID de cliente: " +this.id);
     }
 
-    public void sendMessage(String message) throws IOException{
+    public void sendMessage(String message) throws IOException {
         this.Sender.startSender(message);
     }
 
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         //Client cliente = new Client();
     }
 

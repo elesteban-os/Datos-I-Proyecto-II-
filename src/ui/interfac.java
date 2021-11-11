@@ -2,14 +2,16 @@ package src.ui;
 
 import javax.swing.*;
 
-import sockets.Client;
+import src.sockets.Client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-
+import src.Calculator;
 
 public class interfac {
+
+    private Calculator calculator = new Calculator();
 
     private JFrame window = new JFrame("Calculadora");
     private JButton calcular = new JButton("Calcular");
@@ -61,9 +63,12 @@ public class interfac {
         @Override
         public void actionPerformed(ActionEvent event){
             try {
-                client.sendMessage(operation.getText());
-            } catch (IOException e){
-
+                String expression = operation.getText();
+                if (calculator.validate(expression)) {
+                    client.sendMessage("operation " + expression);
+                }
+            } catch (IOException io) {
+                io.printStackTrace();
             }
         }
     };

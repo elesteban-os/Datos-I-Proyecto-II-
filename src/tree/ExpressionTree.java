@@ -60,7 +60,12 @@ public class ExpressionTree {
             }
             case "/" -> {
                 result = solve(node.getLeft());
-                result /= solve(node.getRight());
+                int right = solve(node.getRight());
+                if (right != 0) {
+                    result /= right;
+                } else {
+                    result = 999999999;
+                }
             }
             case "%" -> {
                 result = solve(node.getLeft());

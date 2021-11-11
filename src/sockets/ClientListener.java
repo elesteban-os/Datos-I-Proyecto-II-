@@ -1,5 +1,8 @@
 package src.sockets;
 
+import src.Calculator;
+import src.tree.ExpressionTree;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -9,6 +12,8 @@ import java.util.StringTokenizer;
 
 public class ClientListener implements Runnable {
     public Socket client;
+    private Calculator calculator = new Calculator();
+    ExpressionTree tree = new ExpressionTree();
     DataOutputStream output;
     DataInputStream input;
     String name;
@@ -26,11 +31,11 @@ public class ClientListener implements Runnable {
             String message = "";
             StringTokenizer action;
             try {
-                String message = this.input.readUTF();
-                System.out.println(message);
-                this.output.writeUTF(message);
+                message = this.input.readUTF();
+                System.out.println("leo " + message);
             } catch (IOException io){
-
+                this.client.close();
+                io.printStackTrace();
             }
 
 
