@@ -3,12 +3,17 @@ package tree.list;
 public class LinkedList {
 
     private Node head;
+    private Node tail;
 
     /**
      * Constructor to create a LinkedList with its head as null
      */
     public LinkedList() {
         this.head = null;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
     }
 
     /**
@@ -23,10 +28,26 @@ public class LinkedList {
      * method to add an element at the front of the LinkedList
      * @param data element to add
      */
-    public void add(Object data) {
-        Node newCharacter = new Node (data);
-        newCharacter.setNext(this.head);
-        this.head = newCharacter;
+    public void addAtFront(Object data) {
+        Node newData = new Node (data);
+        if (this.isEmpty()) {
+            this.head = newData;
+            this.tail = newData;
+        } else {
+            newData.setNext(this.head);
+            this.head = newData;
+        }
+    }
+
+    public void addAtEnd(Object data) {
+        Node newData = new Node (data);
+        if (this.isEmpty()) {
+            this.head = newData;
+            this.tail = newData;
+        } else {
+            this.tail.setNext(newData);
+            this.tail = newData;
+        }
     }
 
     /**

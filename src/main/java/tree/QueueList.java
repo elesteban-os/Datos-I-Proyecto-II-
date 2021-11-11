@@ -3,7 +3,7 @@ package tree;
 import tree.list.LinkedList;
 import tree.list.Node;
 
-public class StackList {
+public class QueueList {
 
     private LinkedList list = new LinkedList();
 
@@ -11,15 +11,15 @@ public class StackList {
      * method to add an element to the stack
      * @param data element to add
      */
-    public void push(Object data) {
-        this.list.addAtFront(data);
+    public void enqueue(Object data) {
+        this.list.addAtEnd(data);
     }
 
     /**
      * method to get and delete the first element of the stack
      * @return first element of the stack
      */
-    public Node pop() {
+    public Node dequeue() {
         return this.list.delete();
     }
 
