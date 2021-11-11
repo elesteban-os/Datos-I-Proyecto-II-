@@ -49,25 +49,24 @@ public class reader implements Runnable {
         return message;
     }
 
-    public ArrayList tokens(String message) {
-        StringTokenizer action = new StringTokenizer(message);
-        ArrayList<String> tokens = new ArrayList<>();
-        while(action.hasMoreTokens()){
-            tokens.add(action.nextToken());
-        }
-        return tokens;
-    }
-
     public void run(){
         String arg = "";
         String message = "";
         ArrayList<String> tokens;
         while (isReading){
-            System.out.println("OOO");
             try { message = read(); } catch (IOException e){ this.isReading = false; }
-            System.out.println(message);
 
-            this.uInterface.setResult(message);
+            StringTokenizer action = new StringTokenizer(message);
+
+            switch(action.nextToken()){
+                case "record":
+                    this.uInterface.setRecord(action.nextToken());
+                    break;
+                default:
+                    this.uInterface.setResult(message);
+                    break;
+            }
+
 
         }
     }

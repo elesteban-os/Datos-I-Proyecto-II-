@@ -14,7 +14,7 @@ public class csvReader {
 
     public String[] readLine(String line){
         String[] characters = line.split("");
-        String[] result = new String[3];
+        String[] result = new String[4];
         String temp = "";
         int k = 0;
         for(int i = 0; i < characters.length; i++){
@@ -42,7 +42,7 @@ public class csvReader {
         while (line != null){
             System.out.println(line);
             String[] thisLine = readLine(line);
-            for (int i = 0; i < 3; i++){
+            for (int i = 0; i < 4; i++){
                 //System.out.println(thisLine[i]);
                 data.add(thisLine[i]);
             }
@@ -58,6 +58,7 @@ public class csvReader {
         ArrayList<String> Data = new ArrayList<>();
         String line = reader.readLine();
         System.out.println(line);
+
         while (line != null){
             System.out.println(line);
             Data.add(line);
@@ -66,12 +67,6 @@ public class csvReader {
 
         FileWriter writer = new FileWriter(this.path);
 
-        for (int i = 0; i < Data.size(); i++){
-            System.out.println(Data.get(i));
-            writer.append(Data.get(i));
-            writer.append("\n");
-        }
-
         data.append(id);
         data.append(";");
         data.append(operation);
@@ -79,12 +74,19 @@ public class csvReader {
         data.append(date);
         data.append(";");
         data.append(result);
+        data.append(";");
 
         writer.append(data.toString());
+        writer.append("\n");
+
+        for (int i = 0; i < Data.size(); i++){
+            writer.append(Data.get(i));
+            writer.append("\n");
+        }
+
         writer.flush();
         writer.close();
     }
 
-
-
+    
 }

@@ -48,7 +48,7 @@ public class Client {
         DataInputStream input = new DataInputStream(this.socket.getInputStream());
         this.id = input.readUTF();
         new Thread(this.Reader).start();
-        this.Sender.startSender("Soy cliente " + this.id);
+        //this.Sender.startSender("Soy cliente " + this.id);
         this.Sender.startSender(this.name);
         System.out.println("ID de cliente: " +this.id);
     }

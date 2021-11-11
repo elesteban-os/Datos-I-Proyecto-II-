@@ -1,13 +1,13 @@
 package src.sockets;
 
 import src.Calculator;
+import src.csvReader;
 import src.tree.ExpressionTree;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 public class ClientListener implements Runnable {
@@ -34,10 +34,14 @@ public class ClientListener implements Runnable {
                 message = this.input.readUTF();
                 System.out.println("leo " + message);
             } catch (IOException io){
-                this.client.close();
+                try {
+                    this.client.close();
+                }
+                catch (IOException io2) {
+                    io2.printStackTrace();
+                }
                 io.printStackTrace();
             }
-
 
             if (message != ""){
                 action = new StringTokenizer(message);

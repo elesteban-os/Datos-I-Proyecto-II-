@@ -13,7 +13,6 @@ public class Calculator {
      */
     public String addParenthesis(String operation) {
         String[] characters = operation.split("");
-        System.out.println(parenthesised);
         StackList stack = new StackList();
         String lastOperator = "";
         for (int i = 0; i < characters.length; i++) {

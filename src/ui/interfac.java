@@ -1,12 +1,16 @@
 package src.ui;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import src.sockets.Client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
 import src.Calculator;
 
 public class interfac {
@@ -26,7 +30,9 @@ public class interfac {
     private JLabel lName = new JLabel("Nombre");
     private JButton entrar = new JButton("Unirse");
 
-    //private JTable
+    private JTable table = new JTable();
+
+    private DefaultTableModel writeTable;
 
     private interfac thisInterfaz;
     private String named = "";
@@ -90,12 +96,17 @@ public class interfac {
     };
 
 
+    public void setRecord(String message){
+        String[] operations = message.split(";");
+        String[][] data = new String[3][20];
+    }
+
+
     /**
      * Constructor que implementa todas las características de la interfaz.
      */
     public interfac() {
         System.out.println();
-
 
         // Botón
         calcular.setBounds(50, 300, 100, 30);
