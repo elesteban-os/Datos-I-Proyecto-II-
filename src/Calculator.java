@@ -1,5 +1,5 @@
-import tree.StackList;
 import tree.ExpressionTree;
+import tree.StackList;
 
 public class Calculator {
 
@@ -56,9 +56,17 @@ public class Calculator {
         };
     }
 
+    public boolean validate(String s) {
+        return switch (s) {
+            case "(", ")", "+", "-", "*", "/", "%" -> false;
+            default -> !isNaN(s);
+        };
+    }
+
 
     public static void main(String[] args) {
-        String operation = "((50*70)+(120/60))";
+        String operation = "((5*3)+(2*3)-(2-3))";
+        //((50*70)+(120/60))
         Calculator calc = new Calculator();
         String postfix = calc.getPostfix(operation);
         System.out.println(postfix);
